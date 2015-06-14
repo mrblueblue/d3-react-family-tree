@@ -116,4 +116,38 @@ FamilyTree.prototype.getAllOnlyChilds = function(){
     });
 };
 
+FamilyTree.prototype.numChildren = function(){
+  if (!this.children){
+    return 0;
+  }
+  return this.children.length;
+};
+
+FamilyTree.prototype.numGrandChildren = function(){
+  if (!this.children) {
+    return 0;
+  }
+  return this.children.reduce( function(total, child) {
+    total += child.numChildren();
+    return total;
+  }, 0);
+};
+
+FamilyTree.prototype.largestNumGrandChildren = function(){
+
+  var largest = 0;
+  var output = null;
+
+  this.traverse( function(member){
+    var numGrandChildren = member.numGrandChildren();
+    if (largest < numGrandChildren){
+      largest = numGrandChildren;
+      output = member.name;
+      return;
+    }
+  });
+
+  return output;
+};
+
 module.exports = FamilyTree;

@@ -168,6 +168,52 @@ describe('FamilyTree class', function() {
       });
     });
 
+    describe('numChildren function', function(){
+
+      it('should exist on FamilyTree prototype', function(){
+        expect(FamilyTree.prototype.hasOwnProperty('numChildren')).toEqual(true);
+      });
+
+      it('should return the number of children for a given root member', function(){
+
+        var Alice = new FamilyTree('Alice');
+
+        ['Henry', 'Steven', 'Harold'].forEach( function(person) {
+          Alice.addChild(new FamilyTree(person));
+        });
+
+        expect(Alice.numChildren()).toEqual(3);
+      });
+    });
+
+    describe('numGrandChildren function', function(){
+
+      it('should exist on FamilyTree prototype', function(){
+        expect(FamilyTree.prototype.hasOwnProperty('numGrandChildren')).toEqual(true);
+      });
+
+      it('should return the number of grandchildren for a given root member', function(){
+        var James = new FamilyTree('James');
+        var John = new FamilyTree('John');
+        var Jacob = new FamilyTree('Jacos');
+        John.addChild(Jacob);
+        James.addChild(John);
+        expect(James.numGrandChildren()).toEqual(1);
+        expect(John.numGrandChildren()).toEqual(0);
+      });
+    });
+
+    describe('largestNumGrandChildren function', function(){
+
+      it('should exist on FamilyTree prototype', function(){
+        expect(FamilyTree.prototype.hasOwnProperty('largestNumGrandChildren')).toEqual(true);
+      });
+
+      it('should return the name of the person who has the most grandchildren', function(){
+        expect(NancyFamilyTree.largestNumGrandChildren()).toEqual('Jill');
+      });
+    });
+
   });
 
 });
