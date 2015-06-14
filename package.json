@@ -1,0 +1,17 @@
+{
+  "name": "family-tree",
+  "version": "1.0.0",
+  "description": "a family-tree class in js",
+  "main": "src/FamilyTree.js",
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^0.13.2",
+    "gulp-jasmine": "^2.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "gulp test"
+  },
+  "author": "Jonathan Huang",
+  "license": "MIT"
+}
