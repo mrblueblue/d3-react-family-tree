@@ -2,8 +2,8 @@
 
 var FamilyTree = require('../src/FamilyTree');
 var NancyFamily = require('../src/NancyFamily');
-// var Nancy = new FamilyTree('Nancy');
-// var NancyFamilyTree = Nancy.build(NancyFamily);
+var Nancy = new FamilyTree('Nancy');
+var NancyFamilyTree = Nancy.build(NancyFamily.tree);
 
 describe('FamilyTree class', function() {
 
@@ -62,7 +62,7 @@ describe('FamilyTree class', function() {
 
         var Bobby = new FamilyTree('Bobby');
         var json = {
-          'Bob': {
+          'Bobby': {
             'Bill': null,
             'Byron': {
               'Bo': null
@@ -79,38 +79,48 @@ describe('FamilyTree class', function() {
 
     describe('traverse function', function(){
 
-      xit('should exist on FamilyTree prototype', function(){
+      it('should exist on FamilyTree prototype', function(){
         expect(FamilyTree.prototype.hasOwnProperty('traverse')).toEqual(true);
       });
 
-      xit('should traverse entire family tree and apply an iterator to each member', function(){
-
+      it('should traverse entire family tree and apply an iterator to each member', function(){
+        var called = [];
+        NancyFamilyTree.traverse(function(member){
+          called.push(member.name);
+        });
+        expect(called.sort()).toEqual(NancyFamily.roster.sort());
       });
 
     });
 
     describe('filter function', function(){
 
-      xit('should exist on FamilyTree prototype', function(){
+      it('should exist on FamilyTree prototype', function(){
         expect(FamilyTree.prototype.hasOwnProperty('filter')).toEqual(true);
       });
 
-      xit('should return a collection of members that meet a condition', function(){
+      it('should return a collection of members that meet a condition', function(){
 
+        var collection = NancyFamilyTree.filter( function(member){
+          return member.children.length === 2;
+        }).map( function(member) {
+          return member.name;
+        });
+
+        expect(collection).toEqual(['Carl', 'George']);
       });
-
     });
 
     describe('find function', function(){
 
-      xit('should exist on FamilyTree prototype', function(){
+      it('should exist on FamilyTree prototype', function(){
         expect(FamilyTree.prototype.hasOwnProperty('find')).toEqual(true);
       });
 
-      xit('should find the member in the family tree given the name', function(){
-
+      it('should find the member in the family tree given the name', function(){
+        expect(NancyFamilyTree.find('Samuel').name).toEqual('Samuel');
+        expect(NancyFamilyTree.find('Samuel').children).toEqual([]);
       });
-
     });
 
   });
