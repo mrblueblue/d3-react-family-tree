@@ -29,14 +29,34 @@ FamilyTree.prototype.build = function(json){
 
 FamilyTree.prototype.traverse = function(iterator){
 
+  iterator(this);
+
+  if (!this.children){
+    return;
+  }
+
+  this.children.forEach( function(child) {
+    child.traverse(iterator);
+  });
 };
 
 FamilyTree.prototype.filter = function(condition){
 
+  var output = [];
+
+  this.traverse(function(member){
+    if (condition(member)) {
+      output.push(member);
+    }
+  });
+
+  return output;
 };
 
 FamilyTree.prototype.find = function(name){
-
+  return this.filter(function(member){
+    return member.name === name;
+  })[0];
 };
 
 module.exports = FamilyTree;
