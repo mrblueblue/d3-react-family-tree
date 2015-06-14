@@ -73,6 +73,7 @@ FamilyTree.prototype.getParentOf = function(target){
 
     return isParent;
   })[0]; //since only one parent node is allowed
+
 };
 
 FamilyTree.prototype.getGrandParentOf = function(member) {
