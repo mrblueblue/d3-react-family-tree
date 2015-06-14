@@ -147,23 +147,24 @@ describe('FamilyTree class', function() {
 
     describe('getAllChildlessMembers function', function(){
 
-      xit('should exist on FamilyTree prototype', function(){
+      it('should exist on FamilyTree prototype', function(){
         expect(FamilyTree.prototype.hasOwnProperty('getAllChildlessMembers')).toEqual(true);
       });
 
-      xit('should return a collection member names who have no children', function(){
-        
+      it('should return a collection member names who have no children', function(){
+        var membersWithNoChildren = ['Adam', 'Samuel', 'Catherine', 'Joseph', 'Aaron', 'Patrick', 'Robert', 'Mary'];
+        expect(NancyFamilyTree.getAllChildlessMembers().sort()).toEqual(membersWithNoChildren.sort());
       });
     });
 
     describe('getAllOnlyChilds function', function(){
 
-      xit('should exist on FamilyTree prototype', function(){
+      it('should exist on FamilyTree prototype', function(){
         expect(FamilyTree.prototype.hasOwnProperty('getAllOnlyChilds')).toEqual(true);
       });
 
-      xit('should return a collection member names who have no siblings', function(){
-        
+      it('should return a collection member names who have no siblings', function(){
+        expect(NancyFamilyTree.getAllOnlyChilds()).toEqual(['Kevin', 'Mary', 'Nancy']);
       });
     });
 

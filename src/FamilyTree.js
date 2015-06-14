@@ -87,6 +87,33 @@ FamilyTree.prototype.getGrandParentOf = function(member) {
 
   grandparent = this.getParentOf(parent.name);
   return grandparent;
-}
+};
+
+FamilyTree.prototype.getAllChildlessMembers = function(){
+  return this.filter( function(member){
+    return !member.children.length;
+  }).map( function(member) {
+    return member.name;
+  });
+};
+
+FamilyTree.prototype.getAllOnlyChilds = function(){
+
+  // filter collection to parents with a single child
+  return this.filter( function(member){
+    return member.children.length === 1;
+
+  // map collection to the only childs
+  }).map(function(member){
+    return member.children[0];
+
+  // add root to collection
+  }).concat(this)
+
+  // return the collection as a collection of names
+    .map( function(member){
+      return member.name;
+    });
+};
 
 module.exports = FamilyTree;
