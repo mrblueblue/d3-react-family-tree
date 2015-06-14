@@ -5,6 +5,26 @@ var NancyFamily = require('../src/NancyFamily');
 var Nancy = new FamilyTree('Nancy');
 var NancyFamilyTree = Nancy.build(NancyFamily.tree);
 
+describe('Main Objectives', function(){
+
+  it('should take a name as input and output the grandparents name', function(){
+    expect(NancyFamilyTree.getGrandParentOf('Kevin')).toEqual('Nancy');
+  });
+
+  it('should print the names of people with no siblings', function(){
+    expect(NancyFamilyTree.getAllOnlyChilds()).toEqual(['Kevin', 'Mary', 'Nancy']);
+  });
+
+  it('should print the names of people with no children', function(){
+    var membersWithNoChildren = ['Adam', 'Samuel', 'Catherine', 'Joseph', 'Aaron', 'Patrick', 'Robert', 'Mary'];
+    expect(NancyFamilyTree.getAllChildlessMembers().sort()).toEqual(membersWithNoChildren.sort());
+  });
+
+  it('should print the name of the person with largest number of grand children', function(){
+    expect(NancyFamilyTree.largestNumGrandChildren()).toEqual('Jill');
+  });
+});
+
 describe('FamilyTree class', function() {
 
   var Aaron = new FamilyTree('Aaron');
@@ -141,7 +161,7 @@ describe('FamilyTree class', function() {
       });
 
       it('should find the grandparent of a given name', function(){
-        expect( NancyFamilyTree.getGrandParentOf('Samuel').name ).toEqual('Jill');
+        expect(NancyFamilyTree.getGrandParentOf('Samuel')).toEqual('Jill');
       });
     });
 
@@ -213,7 +233,5 @@ describe('FamilyTree class', function() {
         expect(NancyFamilyTree.largestNumGrandChildren()).toEqual('Jill');
       });
     });
-
   });
-
 });

@@ -86,7 +86,7 @@ FamilyTree.prototype.getGrandParentOf = function(member) {
   }
 
   grandparent = this.getParentOf(parent.name);
-  return grandparent;
+  return grandparent.name;
 };
 
 FamilyTree.prototype.getAllChildlessMembers = function(){
@@ -124,7 +124,7 @@ FamilyTree.prototype.numChildren = function(){
 };
 
 FamilyTree.prototype.numGrandChildren = function(){
-  if (!this.children) {
+  if (!this.children){
     return 0;
   }
   return this.children.reduce( function(total, child) {
