@@ -59,4 +59,33 @@ FamilyTree.prototype.find = function(name){
   })[0];
 };
 
+FamilyTree.prototype.getParentOf = function(target){
+
+  return this.filter( function(member){
+
+    var isParent = false;
+
+    member.children.forEach( function(child){
+      if (child.name === target){
+        isParent = true;
+      }
+    });
+
+    return isParent;
+  })[0]; //since only one parent node is allowed
+};
+
+FamilyTree.prototype.getGrandParentOf = function(member) {
+
+  var grandparent;
+  var parent = this.getParentOf(member);
+
+  if (!parent) {
+    return null;
+  }
+
+  grandparent = this.getParentOf(parent.name);
+  return grandparent;
+}
+
 module.exports = FamilyTree;

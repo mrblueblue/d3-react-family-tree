@@ -123,6 +123,50 @@ describe('FamilyTree class', function() {
       });
     });
 
+    describe('getParentOf function', function(){
+
+      it('should exist on FamilyTree prototype', function(){
+        expect(FamilyTree.prototype.hasOwnProperty('getParentOf')).toEqual(true);
+      });
+
+      it('should find the parent of a given name', function(){
+        expect( NancyFamilyTree.getParentOf('Samuel').name ).toEqual('Kevin');
+      });
+    });
+
+    describe('getGrandParentOf function', function(){
+
+      it('should exist on FamilyTree prototype', function(){
+        expect(FamilyTree.prototype.hasOwnProperty('getGrandParentOf')).toEqual(true);
+      });
+
+      it('should find the grandparent of a given name', function(){
+        expect( NancyFamilyTree.getGrandParentOf('Samuel').name ).toEqual('Jill');
+      });
+    });
+
+    describe('getAllChildlessMembers function', function(){
+
+      xit('should exist on FamilyTree prototype', function(){
+        expect(FamilyTree.prototype.hasOwnProperty('getAllChildlessMembers')).toEqual(true);
+      });
+
+      xit('should return a collection member names who have no children', function(){
+        
+      });
+    });
+
+    describe('getAllOnlyChilds function', function(){
+
+      xit('should exist on FamilyTree prototype', function(){
+        expect(FamilyTree.prototype.hasOwnProperty('getAllOnlyChilds')).toEqual(true);
+      });
+
+      xit('should return a collection member names who have no siblings', function(){
+        
+      });
+    });
+
   });
 
 });
