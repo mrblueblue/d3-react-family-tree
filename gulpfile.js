@@ -32,7 +32,9 @@ gulp.task('lint', function () {
         'modules': true, 
         'quotes': [1, 'single'], 
         'global-strict': false,
-        'no-use-before-define': false
+        'no-use-before-define': false,
+        'no-console': false,
+        'no-process-exit': false
       }
     }))
     .pipe(eslint.format())
