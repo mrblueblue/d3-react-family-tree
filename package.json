@@ -13,7 +13,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "gulp build && gulp",
+    "start": "gulp build && gulp test && gulp lint && node src/objective.js",
     "test": "gulp test"
   },
   "author": "Jonathan Huang",
