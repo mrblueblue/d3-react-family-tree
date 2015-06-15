@@ -1,4 +1,5 @@
 'use strict';
+
 var jsdom = require('jsdom');
 var fs = require('fs');
 var jquery = fs.readFileSync('node_modules/jquery/dist/jquery.min.js', 'utf-8');
@@ -117,6 +118,12 @@ describe('FamilyTree class', function() {
         expect(Bob.children.length).toEqual(1);
         expect(Bob.children[0]).toEqual(Bill);
       });
+
+      it('should only accept instances of the FamilyTee class', function(){
+        expect( function() {
+          Bob.addChild({name: 'Bill', children: []});
+        }).toThrow(new Error('child must be an instance of FamilyTree!'));
+      });
     });
 
     describe('build function', function(){
@@ -188,6 +195,10 @@ describe('FamilyTree class', function() {
         expect(NancyFamilyTree.find('Samuel').name).toEqual('Samuel');
         expect(NancyFamilyTree.find('Samuel').children).toEqual([]);
       });
+
+      it('should return undefined if nothing is found', function(){
+        expect(NancyFamilyTree.find('Lincoln')).toEqual(undefined);
+      });
     });
 
     describe('getParentOf function', function(){
@@ -197,7 +208,11 @@ describe('FamilyTree class', function() {
       });
 
       it('should find the parent of a given name', function(){
-        expect( NancyFamilyTree.getParentOf('Samuel').name ).toEqual('Kevin');
+        expect(NancyFamilyTree.getParentOf('Samuel').name).toEqual('Kevin');
+      });
+
+      it('should return undefined if there is no parent', function(){
+        expect(NancyFamilyTree.getParentOf('Nancy')).toEqual(undefined);
       });
     });
 
@@ -209,6 +224,10 @@ describe('FamilyTree class', function() {
 
       it('should find the grandparent of a given name', function(){
         expect(NancyFamilyTree.getGrandParentOf('Samuel')).toEqual('Jill');
+      });
+
+      it('should return null if there is no grandparent', function(){
+        expect(NancyFamilyTree.getGrandParentOf('Nancy')).toEqual(null);
       });
     });
 
@@ -232,6 +251,11 @@ describe('FamilyTree class', function() {
 
       it('should return a collection member names who have no siblings', function(){
         expect(NancyFamilyTree.getAllOnlyChilds()).toEqual(['Kevin', 'Mary', 'Nancy']);
+      });
+
+      it('should return the name of root member if root is the only member of tree', function(){
+        var Issac = new FamilyTree('Issac');
+        expect(Issac.getAllOnlyChilds()).toEqual(['Issac']);
       });
     });
 
@@ -278,6 +302,11 @@ describe('FamilyTree class', function() {
 
       it('should return the name of the person who has the most grandchildren', function(){
         expect(NancyFamilyTree.largestNumGrandChildren()).toEqual('Jill');
+      });
+
+      it('should return null if no members have grandchildren', function(){
+        var George = new FamilyTree('George');
+        expect(George.largestNumGrandChildren()).toEqual(null);
       });
     });
   });

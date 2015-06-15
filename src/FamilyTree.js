@@ -6,6 +6,11 @@ var FamilyTree = function(name){
 };
 
 FamilyTree.prototype.addChild = function(child){
+
+  if ( !(child instanceof FamilyTree) ) {
+    throw new Error('child must be an instance of FamilyTree!');
+  }
+
   this.children.push(child);
 };
 
@@ -86,6 +91,11 @@ FamilyTree.prototype.getGrandParentOf = function(member) {
   }
 
   grandparent = this.getParentOf(parent.name);
+
+  if (!grandparent){
+    return null;
+  }
+
   return grandparent.name;
 };
 
