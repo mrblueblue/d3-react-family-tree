@@ -1,4 +1,9 @@
 'use strict';
+var jsdom = require('jsdom');
+var fs = require('fs');
+var jquery = fs.readFileSync('node_modules/jquery/dist/jquery.min.js', 'utf-8');
+var d3 = fs.readFileSync('node_modules/d3/d3.min.js', 'utf-8');
+var bundle = fs.readFileSync('src/www/bundle.js', 'utf-8');
 
 var FamilyTree = require('../src/FamilyTree');
 var NancyFamily = require('../src/NancyFamily');
@@ -7,21 +12,63 @@ var NancyFamilyTree = Nancy.build(NancyFamily.tree);
 
 describe('Main Objectives', function(){
 
-  it('should take a name as input and output the grandparents name', function(){
-    expect(NancyFamilyTree.getGrandParentOf('Kevin')).toEqual('Nancy');
+  describe('Input/Output Behavior', function(){
+
+    it('should take a name as input and output the grandparents name', function(){
+      expect(NancyFamilyTree.getGrandParentOf('Kevin')).toEqual('Nancy');
+    });
+
+    it('should print the names of people with no siblings', function(){
+      expect(NancyFamilyTree.getAllOnlyChilds()).toEqual(['Kevin', 'Mary', 'Nancy']);
+    });
+
+    it('should print the names of people with no children', function(){
+      var membersWithNoChildren = ['Adam', 'Samuel', 'Catherine', 'Joseph', 'Aaron', 'Patrick', 'Robert', 'Mary'];
+      expect(NancyFamilyTree.getAllChildlessMembers().sort()).toEqual(membersWithNoChildren.sort());
+    });
+
+    it('should print the name of the person with largest number of grand children', function(){
+      expect(NancyFamilyTree.largestNumGrandChildren()).toEqual('Jill');
+    });
   });
 
-  it('should print the names of people with no siblings', function(){
-    expect(NancyFamilyTree.getAllOnlyChilds()).toEqual(['Kevin', 'Mary', 'Nancy']);
-  });
+  describe('Tree Visualization', function(){
 
-  it('should print the names of people with no children', function(){
-    var membersWithNoChildren = ['Adam', 'Samuel', 'Catherine', 'Joseph', 'Aaron', 'Patrick', 'Robert', 'Mary'];
-    expect(NancyFamilyTree.getAllChildlessMembers().sort()).toEqual(membersWithNoChildren.sort());
-  });
+    var d3TreeNodes = [];
+    var dyPosition = {};
 
-  it('should print the name of the person with largest number of grand children', function(){
-    expect(NancyFamilyTree.largestNumGrandChildren()).toEqual('Jill');
+    beforeEach(function(done){
+      jsdom.env({
+        html: '<html><body></body></html>',
+        src: [jquery, d3, bundle],
+        done: function(err, window) {
+
+          window.$('.node').each( function(index, element){
+
+            var node = window.$(element);
+            var nodeName = node.find('text').text();
+            var nodeYPosition = node.attr('transform').match(/\,(.*)/)[1];
+            nodeYPosition = parseInt(nodeYPosition.substring(0, nodeYPosition.length - 1));
+
+            d3TreeNodes.push(nodeName);
+            dyPosition[nodeName] = nodeYPosition;
+          });
+
+          done();
+        }
+      });
+    });
+
+    it('should correctly visualize all members of the Nancy family', function(){
+
+      expect(d3TreeNodes.sort()).toEqual(NancyFamily.roster.sort());
+
+      expect(dyPosition.Nancy < dyPosition.Jill
+        && dyPosition.Jill < dyPosition.Mary).toEqual(true);
+
+      expect(dyPosition.James === dyPosition.George
+        && dyPosition.George === dyPosition.Samuel).toEqual(true);
+    });
   });
 });
 

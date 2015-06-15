@@ -4,12 +4,16 @@
   "description": "a family-tree class in js",
   "main": "src/FamilyTree.js",
   "dependencies": {
+    "d3": "^3.5.5",
     "gulp": "^3.9.0",
     "gulp-eslint": "^0.13.2",
-    "gulp-jasmine": "^2.0.1"
+    "gulp-jasmine": "^2.0.1",
+    "gulp-webpack": "^1.5.0",
+    "jquery": "^2.1.4"
   },
   "devDependencies": {},
   "scripts": {
+    "start": "gulp build && gulp",
     "test": "gulp test"
   },
   "author": "Jonathan Huang",
