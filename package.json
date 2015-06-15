@@ -2,8 +2,13 @@
   "name": "family-tree",
   "version": "1.0.0",
   "description": "a family-tree class in js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mrblueblue/family-tree.git"
+  },
   "main": "src/family-tree.js",
   "dependencies": {
+    "alt": "^0.16.10",
     "babel-core": "^5.5.8",
     "babel-eslint": "^3.1.15",
     "babel-loader": "^5.1.4",
@@ -15,7 +20,9 @@
     "gulp-jasmine": "^2.0.1",
     "gulp-webpack": "^1.5.0",
     "jquery": "^2.1.4",
-    "jsx-loader": "^0.13.2"
+    "jsdom": "^5.4.3",
+    "jsx-loader": "^0.13.2",
+    "react": "^0.13.3"
   },
   "devDependencies": {},
   "scripts": {
