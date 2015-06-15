@@ -2,18 +2,24 @@
   "name": "family-tree",
   "version": "1.0.0",
   "description": "a family-tree class in js",
-  "main": "src/FamilyTree.js",
+  "main": "src/family-tree.js",
   "dependencies": {
+    "babel-core": "^5.5.8",
+    "babel-eslint": "^3.1.15",
+    "babel-loader": "^5.1.4",
     "d3": "^3.5.5",
+    "eslint": "^0.23.0",
+    "eslint-plugin-react": "^2.5.2",
     "gulp": "^3.9.0",
     "gulp-eslint": "^0.13.2",
     "gulp-jasmine": "^2.0.1",
     "gulp-webpack": "^1.5.0",
-    "jquery": "^2.1.4"
+    "jquery": "^2.1.4",
+    "jsx-loader": "^0.13.2"
   },
   "devDependencies": {},
   "scripts": {
-    "start": "gulp build && gulp test && gulp lint && node src/objective.js",
+    "start": "gulp lint && gulp build && gulp test && node src/nancy-family-cli.js",
     "test": "gulp test"
   },
   "author": "Jonathan Huang",
