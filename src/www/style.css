@@ -13,3 +13,7 @@
   stroke: #ccc;
   stroke-width: 1px;
 }
+
+ul {
+  list-style-type: none;
+}

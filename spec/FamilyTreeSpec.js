@@ -3,11 +3,11 @@
 var jsdom = require('jsdom');
 var fs = require('fs');
 var jquery = fs.readFileSync('node_modules/jquery/dist/jquery.min.js', 'utf-8');
-var d3 = fs.readFileSync('node_modules/d3/d3.min.js', 'utf-8');
+var react = fs.readFileSync('node_modules/react/dist/react-with-addons.min.js', 'utf-8');
 var bundle = fs.readFileSync('src/www/bundle.js', 'utf-8');
 
-var FamilyTree = require('../src/FamilyTree');
-var NancyFamily = require('../src/NancyFamily');
+var FamilyTree = require('../src/family-tree');
+var NancyFamily = require('../src/nancy-family-json');
 var Nancy = new FamilyTree('Nancy');
 var NancyFamilyTree = Nancy.build(NancyFamily.tree);
 
@@ -40,8 +40,8 @@ describe('Main Objectives', function(){
 
     beforeEach(function(done){
       jsdom.env({
-        html: '<html><body></body></html>',
-        src: [jquery, d3, bundle],
+        html: '<html><body><div id="app"></div></body></html>',
+        src: [jquery, react, bundle],
         done: function(err, window) {
 
           window.$('.node').each( function(index, element){
