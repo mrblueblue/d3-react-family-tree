@@ -1,3 +1,5 @@
+![alt tag](https://raw.github.com/mrblueblue/family-tree/master/front-end-screenshot.png)
+
 # family-tree
 
 A FamilyTree class in Javascript.
@@ -8,8 +10,11 @@ A FamilyTree class in Javascript.
 npm install
 npm start
 ```
+The start script will lint, build, test, and then open up a little command-line program. To exit this program enter `quit` or just `CTRL+C` out.
 
-To see the tree visualization, open the file `src/www/index.html` in your browser.
+To see the tree visualization, open the file `src/www/index.html` in your browser. Make sure that the `bundle.js` has been built before opening the html file. To manually build use the command `gulp build`.
+
+To start development mode use the command `gulp`
 
 ### Overview
 
@@ -52,8 +57,10 @@ Returns the name of the member node who has the most grandchildren in the Family
 
 ### Tools
 
-* Task Runner - *Gulp*
+* Front-End - *D3*, *React*, *Alt/Flux*
 * Testing - *Jasmine*, *jsdom*
+* Task Runner - *Gulp*
 * Linting - *eslint*
+* Transpiler - *Babel*
 * Bundling - *Webpack*
-* Data Visualization - *D3*
+
