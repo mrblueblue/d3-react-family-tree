@@ -70,6 +70,10 @@ FamilyTree.prototype.getParentOf = function(target){
 
     var isParent = false;
 
+    if (!member.hasOwnProperty('children')){
+      return false;
+    }
+
     member.children.forEach( function(child){
       if (child.name === target){
         isParent = true;
@@ -101,6 +105,11 @@ FamilyTree.prototype.getGrandParentOf = function(member) {
 
 FamilyTree.prototype.getAllChildlessMembers = function(){
   return this.filter( function(member){
+
+    if (!member.hasOwnProperty('children')){
+      return true;
+    }
+
     return !member.children.length;
   }).map( function(member) {
     return member.name;
@@ -111,6 +120,9 @@ FamilyTree.prototype.getAllOnlyChilds = function(){
 
   // filter collection to parents with a single child
   return this.filter( function(member){
+    if ( !member.hasOwnProperty('children') ){
+      return false;
+    }
     return member.children.length === 1;
 
   // map collection to the only childs
