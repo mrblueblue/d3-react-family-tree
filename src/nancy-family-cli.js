@@ -2,9 +2,9 @@
 
 var util = require('util');
 
-var FamilyTree = require('../src/FamilyTree');
-var NancyFamily = require('../src/NancyFamily');
-var Nancy = new FamilyTree('Nancy');
+var Tree = require('../src/family-tree');
+var NancyFamily = require('../src/nancy-family-json');
+var Nancy = new Tree('Nancy');
 var NancyFamilyTree = Nancy.build(NancyFamily.tree);
 
 var childless = stringifyList(NancyFamilyTree.getAllChildlessMembers());
@@ -34,6 +34,10 @@ process.stdin.on('data', function (text) {
   if (text === 'quit\n') {
 
     done();
+
+  } else if ( !inputName ) {
+
+    console.log('\n\tPlease enter something!\n');
 
   } else if ( inputName[0] !== inputName[0].toUpperCase() ) {
 
@@ -71,38 +75,38 @@ function printTree(node, depth){
   var indent = '';
   var range = new Array(depth);
 
-  // if we are not at root 
+  // if we are not at root
   if (depth){
 
     // iterate through number of depths
     for (var i = 0; i < range.length; i++){
 
-      // if at even depth and 
+      // if at even depth and
       // if iteration number is equal to second to last
       if ( range.length % 2 === 0 && i === range.length - 1) {
         // add pipe symbol at beginning
-        indent+='|  ';
+        indent += '|  ';
       } else {
         // add spaces
-        indent+='   ';
+        indent += '   ';
       }
     }
     // having added necessary symbols and spaces
     // add another pipe
-    indent+='|';
+    indent += '|';
   }
 
   // then, we will iterate through number of depths
-  for (var i = 0; i < range.length; i++){
+  for (var j = 0; j < range.length; j++){
     // and add spaces after the pipe
-    indent+= '___';
+    indent += '___';
   }
 
-  console.log('\t'+indent+node.name);
+  console.log('\t' + indent + node.name);
 
   // base case
   if (!node.children){
-    return
+    return;
   }
 
   // for each of the node's children, recursively print
