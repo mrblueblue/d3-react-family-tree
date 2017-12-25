@@ -1,6 +1,6 @@
 'use strict';
 
-var jsdom = require('jsdom');
+var jsdom = require('jsdom/lib/old-api');
 var fs = require('fs');
 var jquery = fs.readFileSync('node_modules/jquery/dist/jquery.min.js', 'utf-8');
 var react = fs.readFileSync('node_modules/react/dist/react-with-addons.min.js', 'utf-8');
